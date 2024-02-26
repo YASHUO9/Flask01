@@ -24,6 +24,9 @@ def blog(score):
 def calculate():
     return render_template("calculate.html")
 
+# def calculateMarks():
+#     retturn ""
+
 
 if __name__ == "__main__":
     app.run(debug=True)
