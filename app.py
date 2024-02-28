@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,url_for,redirect
 
 app = Flask(__name__)
 
@@ -15,6 +15,13 @@ def about():
 def contact():
     return "Welcome to the contact page!"   
 
+@app.route('/success/<int:score>')
+def success(score):
+    return "The result is " + str(score)
+
+@app.route("/failure/<int:score>")
+def failure(score):
+    return "The result is " + str(score)
 
 @app.route("/blog/<int:score>")
 def blog(score):
@@ -38,7 +45,16 @@ def calculate():
             result = num1 / num2
         else:
             result = "Invalid operation"
-        return render_template('result.html',results =str(result))
+        
+        # if result < 78:
+        #     results = "success"
+        #     return redirect(url_for(results, score = result))
+        # else:
+        #     results = "failure"
+        #     return redirect(url_for(results, score = result))
+            
+            
+        return render_template('new.html',results =result)
 
 
 
