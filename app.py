@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 
 app = Flask(__name__)
 
@@ -20,12 +20,26 @@ def contact():
 def blog(score):
     return "Welcome to the blog page! And the score is: " + str(score)
 
-@app.route("/calculate")
+@app.route("/calculate",methods=["GET","POST"])
 def calculate():
-    return render_template("calculate.html")
+    if request.method == 'GET':
+        return render_template("calculate.html")
+    else:
+        num1 = float(request.form.get("num1"))
+        num2 = float(request.form.get("num2"))
+        operation = request.form.get("operation")
+        if operation == "add":
+            result = num1 + num2
+        elif operation == "subtract":
+            result = num1 - num2
+        elif operation == "multiply":
+            result = num1 * num2
+        elif operation == "divide":
+            result = num1 / num2
+        else:
+            result = "Invalid operation"
+        return render_template('result.html',results =str(result))
 
-# def calculateMarks():
-#     retturn ""
 
 
 if __name__ == "__main__":
